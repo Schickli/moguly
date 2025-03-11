@@ -95,7 +95,7 @@ const sampleLogs: LogEntry[] = [
 ];
 
 export function GameLog({ className, isCollapsed }: GameLogProps) {
-  const [logs, setLogs] = useState<LogEntry[]>(sampleLogs);
+  const [logs] = useState<LogEntry[]>(sampleLogs);
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
