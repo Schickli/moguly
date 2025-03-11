@@ -16,6 +16,9 @@ permissions:
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: ${{ env.working-directory }}
     runs-on: ubuntu-latest
     env:
       AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
@@ -35,10 +38,9 @@ jobs:
           dotnet-version: | 
             8.x.x
             9.x.x
-      - name: Workload Restore
-        uses: zyactions/dotnet-restore@v1.1.0
-        with:
-          working-directory: ${{ env.working-directory }}
+      - name: Workload restore
+        run: dotnet workload restore
+        working-directory: ${{ env.working-directory }}
 
       - name: Log in with Azure (Federated Credentials)
         run: |
