@@ -1,4 +1,4 @@
-namespace MogulyServer
+namespace MogulyServer.Api
 {
     public class WeatherForecast
     {
