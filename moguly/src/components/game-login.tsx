@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,7 +30,7 @@ export function GameLogin() {
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col p-10">
       <main className="flex-1 flex items-center justify-center">
         <Card className="w-full max-w-md  backdrop-blur-sm ">
           <CardHeader>
@@ -60,7 +58,6 @@ export function GameLogin() {
                 placeholder="Enter your name"
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
-                className=" placeholder:text-white/50"
               />
             </div>
 
