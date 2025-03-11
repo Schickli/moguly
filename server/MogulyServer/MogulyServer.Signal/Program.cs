@@ -5,7 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
 builder.Services.AddSignalR();
-    //.AddNamedAzureSignalR("moguly-signalR");
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 
 builder.Services.AddCors(options =>
 {
