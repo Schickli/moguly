@@ -35,6 +35,11 @@ jobs:
             8.x.x
             9.x.x
 
+      - name: Change to Server directory
+        run: |
+          cd ./server/MogulyServer
+        shell: pwsh
+
       - name: Log in with Azure (Federated Credentials)
         run: |
           azd auth login `
