@@ -23,6 +23,7 @@ jobs:
       AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
       AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+      working-directory: ./server/MogulyServer
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,11 +36,6 @@ jobs:
             8.x.x
             9.x.x
 
-      - name: Change to Server directory
-        run: |
-          cd ./server/MogulyServer
-        shell: pwsh
-
       - name: Log in with Azure (Federated Credentials)
         run: |
           azd auth login `
@@ -47,12 +43,15 @@ jobs:
             --federated-credential-provider "github" `
             --tenant-id "$Env:AZURE_TENANT_ID"
         shell: pwsh
-
+  
 
       - name: Provision Infrastructure
         run: azd provision --no-prompt
+        working-directory: ${{ env.working-directory }}
         env:
           AZD_INITIAL_ENVIRONMENT_CONFIG: ${{ secrets.AZD_INITIAL_ENVIRONMENT_CONFIG }}
+        
 
       - name: Deploy Application
+        working-directory: ${{ env.working-directory }}
         run: azd deploy --no-prompt
