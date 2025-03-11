@@ -30,7 +30,7 @@ export function GameLogin() {
   };
 
   return (
-    <div className="h-full flex flex-col p-10">
+    <div className="h-full flex flex-col pt-28">
       <main className="flex-1 flex items-center justify-center">
         <Card className="w-full max-w-md  backdrop-blur-sm ">
           <CardHeader>
