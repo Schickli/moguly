@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0" version="26.0.12">
   <diagram name="Page-1" id="1JltymOU_94CAYNyti2q">
-    <mxGraphModel dx="743" dy="402" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1076" dy="583" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -9,7 +9,7 @@
         </mxCell>
         <mxCell id="a0pdIB2whQw5H2ZO3lu2-12" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="220" y="530" as="sourcePoint" />
+            <mxPoint x="220" y="650" as="sourcePoint" />
             <mxPoint x="220" y="110" as="targetPoint" />
           </mxGeometry>
         </mxCell>
@@ -153,7 +153,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="a0pdIB2whQw5H2ZO3lu2-49" value="&lt;font style=&quot;font-size: 5px;&quot;&gt;Event=DiceResult, DiceResult, AllowedActions&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="a0pdIB2whQw5H2ZO3lu2-48">
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-49" value="&lt;font style=&quot;font-size: 5px;&quot;&gt;Event=DiceResult, DiceResult {diceResult, new Player position}, AllowedActions&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="a0pdIB2whQw5H2ZO3lu2-48">
           <mxGeometry x="0.0069" y="-1" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
@@ -163,9 +163,9 @@
             <mxPoint x="130" y="380" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="a0pdIB2whQw5H2ZO3lu2-57" value="&lt;font style=&quot;font-size: 5px;&quot;&gt;Event=DiceResult, DiceResult, AllowedActions&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="a0pdIB2whQw5H2ZO3lu2-56">
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-57" value="&lt;font style=&quot;font-size: 5px;&quot;&gt;Event=DiceResult, DiceResult {diceResult, new Player position}, AllowedActions&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="a0pdIB2whQw5H2ZO3lu2-56">
           <mxGeometry x="-0.2133" y="1" relative="1" as="geometry">
-            <mxPoint as="offset" />
+            <mxPoint x="-46" y="-1" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="a0pdIB2whQw5H2ZO3lu2-47" value="HandleDiceRoll" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
@@ -179,8 +179,32 @@
         <mxCell id="a0pdIB2whQw5H2ZO3lu2-50" value="BuyProperty" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="500" y="430" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="a0pdIB2whQw5H2ZO3lu2-55" value="HandleDiceRoll" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-55" value="HandleBuyProperty" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="272.5" y="430" width="115" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-58" value="&lt;font style=&quot;font-size: 5px;&quot;&gt;check which property he wants to buy based on the position&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="480" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-59" value="&lt;font style=&quot;font-size: 5px;&quot;&gt;check if he can do this command&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="450" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="a0pdIB2whQw5H2ZO3lu2-61">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="140" y="525" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="a0pdIB2whQw5H2ZO3lu2-61">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="525" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-65" value="&lt;font style=&quot;font-size: 5px;&quot;&gt;New property, Allowed Actions&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="a0pdIB2whQw5H2ZO3lu2-64">
+          <mxGeometry x="-0.0367" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-61" value="&lt;font style=&quot;font-size: 5px;&quot;&gt;deduct money&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="510" width="80" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
