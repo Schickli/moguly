@@ -8,6 +8,7 @@ namespace MogulyServer.Domain.Square.ColoredStreets
 {
     class ColoredStreetSquare : Square
     {
+        public Guid Id { get; private set; }
         public string Name { get; init; }
         public StreetColor Color { get; init; }
         public string Owner { get; private set; }
