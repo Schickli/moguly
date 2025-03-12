@@ -38,7 +38,7 @@
         </mxCell>
         <mxCell id="a0pdIB2whQw5H2ZO3lu2-16" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="440" y="568.5714285714286" as="sourcePoint" />
+            <mxPoint x="440" y="650" as="sourcePoint" />
             <mxPoint x="440" y="110" as="targetPoint" />
           </mxGeometry>
         </mxCell>
@@ -205,6 +205,43 @@
         </mxCell>
         <mxCell id="a0pdIB2whQw5H2ZO3lu2-61" value="&lt;font style=&quot;font-size: 5px;&quot;&gt;deduct money&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="290" y="510" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-68" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="a0pdIB2whQw5H2ZO3lu2-67" target="a0pdIB2whQw5H2ZO3lu2-69">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="575" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-67" value="Finsish Turn" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="565" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="a0pdIB2whQw5H2ZO3lu2-69">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="610" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="330" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-72" value="AllowedActions[]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="a0pdIB2whQw5H2ZO3lu2-71">
+          <mxGeometry x="0.0954" y="-1" relative="1" as="geometry">
+            <mxPoint x="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="a0pdIB2whQw5H2ZO3lu2-69">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="610" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="330" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-74" value="AllowedActions[]" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="a0pdIB2whQw5H2ZO3lu2-73">
+          <mxGeometry x="0.4598" y="-2" relative="1" as="geometry">
+            <mxPoint x="35" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a0pdIB2whQw5H2ZO3lu2-69" value="HandleFinishTurn" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="272.5" y="565" width="115" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
