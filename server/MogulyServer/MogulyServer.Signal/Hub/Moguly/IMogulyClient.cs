@@ -1,4 +1,4 @@
-﻿namespace MogulyServer.Signal.Feature.Moguly
+﻿namespace MogulyServer.Signal.Hub.Moguly
 {
     public interface IMogulyClient
     {

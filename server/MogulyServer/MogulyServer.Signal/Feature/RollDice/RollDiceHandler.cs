@@ -2,19 +2,19 @@
 using Microsoft.AspNetCore.SignalR;
 using MogulyServer.Signal.Hub.Moguly;
 
-namespace MogulyServer.Signal.Feature.JoinGame
+namespace MogulyServer.Signal.Feature.RollDice
 {
-    public class JoinGameHandler : IRequestHandler<JoinGameCommand>
+    public class RollDiceHandler : IRequestHandler<RollDiceCommand>
     {
 
         private readonly IHubContext<MogulyHub> _hubContext;
 
-        public JoinGameHandler(IHubContext<MogulyHub> hubContext)
+        public RollDiceHandler(IHubContext<MogulyHub> hubContext)
         {
             _hubContext = hubContext;
         }
 
-        public async Task Handle(JoinGameCommand request, CancellationToken cancellationToken)
+        public async Task Handle(RollDiceCommand request, CancellationToken cancellationToken)
         {
             await _hubContext.Groups.AddToGroupAsync(request.PlayerConnectionId, request.GameId.ToString(), cancellationToken);
         }
