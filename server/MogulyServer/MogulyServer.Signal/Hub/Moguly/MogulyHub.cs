@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Azure.Core;
+using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using MogulyServer.Signal.Feature.JoinGame;
 using Newtonsoft.Json.Linq;
