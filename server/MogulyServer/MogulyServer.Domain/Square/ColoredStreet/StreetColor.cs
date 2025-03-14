@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +24,21 @@ namespace MogulyServer.Domain.Square.ColoredStreets
         private StreetColor(string color)
         {
             _color = color;
+        }
+
+        private StreetColor()
+        {
+
+        }
+
+        public static StreetColor Parse(string color)
+        {
+            return new(color);
+        }
+
+        public override string ToString()
+        {
+            return _color;
         }
     }
 }

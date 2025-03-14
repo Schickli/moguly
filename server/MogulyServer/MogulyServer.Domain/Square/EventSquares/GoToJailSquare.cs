@@ -13,6 +13,12 @@ namespace MogulyServer.Domain.Square.EventSquares
         {
         }
 
+        private GoToJailSquare()
+            : base()
+        {
+
+        }
+
         public static GoToJailSquare Create(GameBoard board)
         {
             return new GoToJailSquare("Go to jail", board);

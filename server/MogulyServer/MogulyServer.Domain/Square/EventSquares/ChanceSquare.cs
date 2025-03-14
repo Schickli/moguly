@@ -13,6 +13,12 @@ namespace MogulyServer.Domain.Square.EventSquares
         {
         }
 
+        private ChanceSquare()
+            : base()
+        {
+
+        }
+
         public static ChanceSquare Create(string name, GameBoard board)
         {
             return new ChanceSquare(name, board);

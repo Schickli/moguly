@@ -13,6 +13,12 @@ namespace MogulyServer.Domain.Square.EventSquares
         {
         }
 
+        private TaxSquare()
+            : base()
+        {
+
+        }
+
         public static TaxSquare Create(string name, GameBoard board)
         {
             return new TaxSquare(name, board);

@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using MogulyServer.Signal.Feature.CreateGame;
 using MogulyServer.Signal.Feature.JoinGame;
 using Newtonsoft.Json.Linq;
 
@@ -11,20 +12,47 @@ namespace MogulyServer.Signal.Hub.Moguly
         private readonly IMediator _mediator;
         private readonly CommandTypeResolver _commandTypeResolver;
 
+        private Dictionary<Guid, List<string>> userConnectionMappings = new Dictionary<Guid, List<string>>();
+
         public MogulyHub(IMediator mediator, CommandTypeResolver commandTypeResolver)
         {
             _mediator = mediator;
             _commandTypeResolver = commandTypeResolver;
         }
 
+
+        // Most likely useless (Connect(), Disconnect()), since we always have the rkey in header
         public override async Task OnConnectedAsync()
         {
-            await Clients.All.ReceiveMessage($"{Context.ConnectionId}", "has joined");
+            var httpContext = Context.GetHttpContext();
+            var userSessionId = Guid.Parse(Context.GetHttpContext()!.Request.Headers["rkey"]!);
+
+
+            if (userConnectionMappings.ContainsKey(userSessionId))
+            {
+                userConnectionMappings[userSessionId].Add(Context.ConnectionId);
+            }
+            else
+            {
+                userConnectionMappings.Add(userSessionId, [Context.ConnectionId]);
+            }
+
+            await base.OnConnectedAsync();
         }
 
-        public async Task SendToAll(string message)
+        public override Task OnDisconnectedAsync(Exception? exception)
         {
-            await Clients.All.ReceiveMessage($"{Context.ConnectionId}", $"{message}");
+            var httpContext = Context.GetHttpContext();
+            var userSessionId = Guid.Parse(Context.GetHttpContext()!.Request.Headers["rkey"]!);
+
+            userConnectionMappings[userSessionId].Remove(Context.ConnectionId);
+
+            if (!userConnectionMappings[userSessionId].Any())
+            {
+                userConnectionMappings.Remove(userSessionId);
+            }
+
+            return base.OnDisconnectedAsync(exception);
         }
 
         public async Task HandleCommand(string commandType, JObject payload)
@@ -44,22 +72,25 @@ namespace MogulyServer.Signal.Hub.Moguly
             await _mediator.Send(command);
         }
 
-        public async Task JoinGame(Guid gameId)
+        public async Task CreateGame()
         {
-            var playerConnectionId = Context.ConnectionId; // CLARIFY: maybe use userIdentifier????
+            var userSessionId = Context.GetHttpContext()!.Request.Headers["rkey"];
+            var createGameCommand = new CreateGameCommand(Guid.Parse(userSessionId!));
 
-            var cmd = new JoinGameCommand()
-            {
-                GameId = gameId,
-                PlayerConnectionId = playerConnectionId
-            };
+            var gameId = await _mediator.Send(createGameCommand);
 
-            await _mediator.Send(cmd);
+            await Groups.AddToGroupAsync(Context.ConnectionId, gameId.ToString());
         }
 
-        public async Task PingPlayers(Guid gameId)
+        public async Task JoinGame(Guid gameId)
         {
-            await Clients.Group(gameId.ToString()).ReceiveMessage("TEST", $"Your are in grou {gameId}");
+            var userSessionId = Context.GetHttpContext()!.Request.Headers["rkey"];
+
+            var joinGameCommand = new JoinGameCommand(gameId, Guid.Parse(userSessionId!));
+
+            await _mediator.Send(joinGameCommand);
+
+            await Groups.AddToGroupAsync(Context.ConnectionId, gameId.ToString());
         }
     }
 }

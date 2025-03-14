@@ -12,5 +12,11 @@ namespace MogulyServer.Domain.Square
         protected EventSquare(string name, GameBoard board) : base(name, board)
         {
         }
+
+        protected EventSquare()
+            : base()
+        {
+
+        }
     }
 }
