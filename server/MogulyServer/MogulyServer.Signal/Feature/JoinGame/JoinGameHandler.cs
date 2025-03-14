@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using MogulyServer.Persistence.Context;
 using MogulyServer.Signal.Feature.RollDice;
 using MogulyServer.Signal.Hub.Moguly;
 

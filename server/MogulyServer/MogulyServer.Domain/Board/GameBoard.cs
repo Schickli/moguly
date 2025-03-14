@@ -24,6 +24,10 @@ namespace MogulyServer.Domain.Board
 
         private const int _boardSize = 40;
 
+        private GameBoard() // used by ef
+        {
+
+        }
         private GameBoard(GamePlayer creator)
         {
             Id = Guid.NewGuid();

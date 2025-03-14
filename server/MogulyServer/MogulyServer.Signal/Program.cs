@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Options;
-using MogulyServer.Persistence;
+using MogulyServer.Persistence.Context;
 using MogulyServer.Signal;
 using MogulyServer.Signal.Hub.Moguly;
 

@@ -15,6 +15,12 @@ namespace MogulyServer.Domain.Square.ColoredStreets
         public bool HasHotel { get; private set; }
         public bool IsMortaged { get; private set; }
         
+        private ColoredStreetSquare()
+            : base()
+        {
+
+        }
+
         private ColoredStreetSquare(string name, GameBoard board, int price, StreetColor color, int baseRentCost)
             : base(name, board, price)
         {

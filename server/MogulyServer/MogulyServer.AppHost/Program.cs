@@ -5,9 +5,14 @@ var sql = builder.AddSqlServer("sql")
 
 var db = sql.AddDatabase("database");
 
+
 var signalService = builder.AddProject<Projects.MogulyServer_Signal>("moguly-signal")
     .WithExternalHttpEndpoints()
     .WithReference(db)
-       .WaitFor(db); ;
+       .WaitFor(db);
+
+builder.AddProject<Projects.MogulyServer_MigrationService>("migrations")
+    .WithReference(db)
+    .WaitFor(db);
 
 builder.Build().Run();

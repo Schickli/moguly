@@ -6,8 +6,11 @@ using MogulyServer.Domain.Square.ColoredStreets;
 using MogulyServer.Domain.Square.EventSquares;
 using MogulyServer.Domain.Square.Railroad;
 using MogulyServer.Domain.Square.Utility;
+using MogulyServer.Persistence.StreetColor;
 
-namespace MogulyServer.Persistence
+using SquareStreetColor = MogulyServer.Domain.Square.ColoredStreets.StreetColor;
+
+namespace MogulyServer.Persistence.Context
 {
     public class MogulyContext : DbContext
     {
@@ -26,10 +29,14 @@ namespace MogulyServer.Persistence
         public DbSet<EventSquare> EventSquares { get; set; }
         public DbSet<OwnableSquare> OwnableSquares { get; set; }
 
-        public MogulyContext(DbContextOptions<MogulyContext> options)
-            : base(options)
+        public MogulyContext(DbContextOptions<MogulyContext> options) : base(options)
         {
-            
+        }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.Properties<SquareStreetColor>()
+                .HaveConversion<StreetColorConverter>();
         }
     }
 }

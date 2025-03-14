@@ -13,6 +13,12 @@ namespace MogulyServer.Domain.Square.EventSquares
         {
         }
 
+        private FreeParkingSquare()
+            : base()
+        {
+
+        }
+
         public static FreeParkingSquare Create(GameBoard board)
         {
             return new FreeParkingSquare("Free parking", board);
