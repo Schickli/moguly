@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MogulyServer.Persistence.Context;
 
@@ -11,9 +12,11 @@ using MogulyServer.Persistence.Context;
 namespace MogulyServer.Persistence.Migrations
 {
     [DbContext(typeof(MogulyContext))]
-    partial class MogulyContextModelSnapshot : ModelSnapshot
+    [Migration("20250314223412_PlayerMapping")]
+    partial class PlayerMapping
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,15 +42,10 @@ namespace MogulyServer.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("BoardId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("Rkey")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BoardId");
 
                     b.ToTable("Players");
                 });
@@ -186,17 +184,6 @@ namespace MogulyServer.Persistence.Migrations
                     b.HasDiscriminator().HasValue("UtilitySquare");
                 });
 
-            modelBuilder.Entity("MogulyServer.Domain.Player.Player", b =>
-                {
-                    b.HasOne("MogulyServer.Domain.Board.GameBoard", "Board")
-                        .WithMany("Players")
-                        .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Board");
-                });
-
             modelBuilder.Entity("MogulyServer.Domain.Square.Square", b =>
                 {
                     b.HasOne("MogulyServer.Domain.Board.GameBoard", "Board")
@@ -213,11 +200,6 @@ namespace MogulyServer.Persistence.Migrations
                     b.HasOne("MogulyServer.Domain.Player.Player", null)
                         .WithMany("Ownables")
                         .HasForeignKey("PlayerId");
-                });
-
-            modelBuilder.Entity("MogulyServer.Domain.Board.GameBoard", b =>
-                {
-                    b.Navigation("Players");
                 });
 
             modelBuilder.Entity("MogulyServer.Domain.Player.Player", b =>

@@ -10,11 +10,13 @@ using MogulyServer.Persistence.StreetColor;
 
 using SquareStreetColor = MogulyServer.Domain.Square.ColoredStreets.StreetColor;
 
+using GamePlayer = MogulyServer.Domain.Player.Player;
+
 namespace MogulyServer.Persistence.Context
 {
     public class MogulyContext : DbContext
     {
-        public DbSet<Player> Players { get; set; }
+        public DbSet<GamePlayer> Players { get; set; }
         public DbSet<GameBoard> Boards { get; set; }
         public DbSet<Square> Squares { get; set; }
         public DbSet<ColoredStreetSquare> ColoredStreetSquares { get; set; }

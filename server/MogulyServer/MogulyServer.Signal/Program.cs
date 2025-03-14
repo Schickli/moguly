@@ -9,6 +9,8 @@ builder.AddServiceDefaults();
 
 builder.AddSqlServerDbContext<MogulyContext>(connectionName: "database");
 
+builder.Services.AddMogulyServices();
+
 builder.Services.AddSignalR(options =>
 {
     options.EnableDetailedErrors = true;

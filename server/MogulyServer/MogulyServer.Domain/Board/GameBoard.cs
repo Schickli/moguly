@@ -13,12 +13,12 @@ using GamePlayer = MogulyServer.Domain.Player.Player;
 using System.Security.Cryptography.X509Certificates;
 
 namespace MogulyServer.Domain.Board
-{
+{ 
     public class GameBoard
     {
         public Guid Id { get; private set; }
 
-        private IList<GamePlayer> _players;
+        public ICollection<GamePlayer> Players { get; set; }
 
         private readonly Square.Square[] _squares;
 
@@ -26,13 +26,13 @@ namespace MogulyServer.Domain.Board
 
         private GameBoard() // used by ef
         {
-
+            Players = new List<GamePlayer>();
         }
         private GameBoard(GamePlayer creator)
         {
             Id = Guid.NewGuid();
 
-            _players = new List<GamePlayer>()
+            Players = new List<GamePlayer>()
             {
                 creator
             };
@@ -87,15 +87,19 @@ namespace MogulyServer.Domain.Board
 
         public static GameBoard Create(GamePlayer creator)
         {
-            return new GameBoard(creator);
+            var board = new GameBoard(creator);
+            creator.Board = board;
+
+            return board;
         }
 
         public void AddPlayer(GamePlayer player)
         {
-            if (_players.Any(player => player.Rkey == player.Rkey))
+            if (Players.Any(p => p.Rkey == player.Rkey))
                 return;
 
-            _players.Add(player);
+            player.Board = this;
+            Players.Add(player);
         }
     }
 }

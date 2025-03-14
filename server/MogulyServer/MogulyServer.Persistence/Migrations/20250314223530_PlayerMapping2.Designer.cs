@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MogulyServer.Persistence.Context;
 
@@ -11,9 +12,11 @@ using MogulyServer.Persistence.Context;
 namespace MogulyServer.Persistence.Migrations
 {
     [DbContext(typeof(MogulyContext))]
-    partial class MogulyContextModelSnapshot : ModelSnapshot
+    [Migration("20250314223530_PlayerMapping2")]
+    partial class PlayerMapping2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,7 +192,7 @@ namespace MogulyServer.Persistence.Migrations
             modelBuilder.Entity("MogulyServer.Domain.Player.Player", b =>
                 {
                     b.HasOne("MogulyServer.Domain.Board.GameBoard", "Board")
-                        .WithMany("Players")
+                        .WithMany()
                         .HasForeignKey("BoardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -213,11 +216,6 @@ namespace MogulyServer.Persistence.Migrations
                     b.HasOne("MogulyServer.Domain.Player.Player", null)
                         .WithMany("Ownables")
                         .HasForeignKey("PlayerId");
-                });
-
-            modelBuilder.Entity("MogulyServer.Domain.Board.GameBoard", b =>
-                {
-                    b.Navigation("Players");
                 });
 
             modelBuilder.Entity("MogulyServer.Domain.Player.Player", b =>

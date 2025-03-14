@@ -25,10 +25,12 @@ namespace MogulyServer.Persistence.Board
 
         public async Task<GameBoard> GetBoardByIdAsync(Guid id)
         {
-            return await _context.Boards.FirstAsync(board => board.Id == id);
+            return await _context.Boards
+                .Include(board => board.Players)
+                .FirstAsync(board => board.Id == id);
         }
 
-        public async Task AddBoard(GameBoard board)
+        public async Task AddBoardAsync(GameBoard board)
         {
             await _context.Boards.AddAsync(board);
         }
