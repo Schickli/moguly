@@ -89,5 +89,13 @@ namespace MogulyServer.Domain.Board
         {
             return new GameBoard(creator);
         }
+
+        public void AddPlayer(GamePlayer player)
+        {
+            if (_players.Any(player => player.Rkey == player.Rkey))
+                return;
+
+            _players.Add(player);
+        }
     }
 }

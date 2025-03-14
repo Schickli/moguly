@@ -5,7 +5,6 @@ var sql = builder.AddSqlServer("sql")
 
 var db = sql.AddDatabase("database");
 
-
 var signalService = builder.AddProject<Projects.MogulyServer_Signal>("moguly-signal")
     .WithExternalHttpEndpoints()
     .WithReference(db)

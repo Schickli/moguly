@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using MogulyServer.Domain.Player;
+using MogulyServer.Persistence.Board;
 using MogulyServer.Persistence.Context;
 using MogulyServer.Signal.Feature.RollDice;
 using MogulyServer.Signal.Hub.Moguly;
@@ -8,18 +10,24 @@ namespace MogulyServer.Signal.Feature.JoinGame
 {
     public class JoinGameHandler : IRequestHandler<JoinGameCommand>
     {
+        private readonly BoardRepository _boardRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        private readonly IHubContext<MogulyHub, IMogulyClient> _hubContext;
-
-        public JoinGameHandler(IHubContext<MogulyHub, IMogulyClient> hubContext)
+        public JoinGameHandler(IUnitOfWork unitOfWork, BoardRepository boardRepository)
         {
-            _hubContext = hubContext;
+            _unitOfWork = unitOfWork;
+            _boardRepository = boardRepository;
         }
 
-        public Task Handle(JoinGameCommand request, CancellationToken cancellationToken)
+        public async Task Handle(JoinGameCommand request, CancellationToken cancellationToken)
         {
-            // TODO: DB stuff
-            return Task.CompletedTask;
+            var board = await _boardRepository.GetBoardByIdAsync(request.GameId);
+
+            var player = Player.Create(request.Rkey);
+
+            board.AddPlayer(player);
+
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }
