@@ -8,7 +8,7 @@ namespace MogulyServer.Signal.Feature.JoinGame
     public class JoinGameHandler : IRequestHandler<JoinGameCommand>
     {
 
-        private readonly IHubContext<MogulyHub, IMogulyClient > _hubContext;
+        private readonly IHubContext<MogulyHub, IMogulyClient> _hubContext;
 
         public JoinGameHandler(IHubContext<MogulyHub, IMogulyClient> hubContext)
         {
