@@ -2,9 +2,5 @@
 
 namespace MogulyServer.Signal.Feature.JoinGame
 {
-    public record JoinGameCommand : IGameCommand
-    {
-        public Guid GameId { get; set; }
-        public string PlayerConnectionId { get; set; }
-    }
+    public record JoinGameCommand(Guid GameId, Guid Rkey) : IRequest;
 }

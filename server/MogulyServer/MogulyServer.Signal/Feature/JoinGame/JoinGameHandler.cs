@@ -17,15 +17,7 @@ namespace MogulyServer.Signal.Feature.JoinGame
 
         public async Task Handle(JoinGameCommand request, CancellationToken cancellationToken)
         {
-            await _hubContext.Groups.AddToGroupAsync(request.PlayerConnectionId, request.GameId.ToString(), cancellationToken);
-
-
-            var availableCommands = new List<string>
-            {
-                nameof(RollDiceCommand)
-            };
-
-            await _hubContext.Clients.All.AvailableCommands(request.PlayerConnectionId, availableCommands);
+            // TODO: DB stuff
         }
     }
 }

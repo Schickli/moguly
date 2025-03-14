@@ -12,6 +12,7 @@
     <PackageReference Include="OpenTelemetry" Version="1.9.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MogulyServer.Domain\MogulyServer.Domain.csproj" />
     <ProjectReference Include="..\MogulyServer.ServiceDefaults\MogulyServer.ServiceDefaults.csproj" />
   </ItemGroup>
 </Project>

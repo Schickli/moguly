@@ -9,18 +9,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using GamePlayer = MogulyServer.Domain.Player.Player;
+using System.Security.Cryptography.X509Certificates;
+
 namespace MogulyServer.Domain.Board
 {
     public class GameBoard
     {
         public Guid Id { get; private set; }
 
+        private IList<GamePlayer> _players;
+
         private readonly Square.Square[] _squares;
 
         private const int _boardSize = 40;
 
-        private GameBoard()
+        private GameBoard(GamePlayer creator)
         {
+            Id = Guid.NewGuid();
+
+            _players = new List<GamePlayer>()
+            {
+                creator
+            };
+
             _squares = new Square.Square[_boardSize]
             {
                 GoSquare.Create(this),
@@ -67,6 +79,11 @@ namespace MogulyServer.Domain.Board
                 TaxSquare.Create("Luxury Tax", this),
                 ColoredStreetSquare.Create("Boardwalk", this, 400, StreetColor.DarkBlue, 400)
             };
+        }
+
+        public static GameBoard Create(GamePlayer creator)
+        {
+            return new GameBoard(creator);
         }
     }
 }
