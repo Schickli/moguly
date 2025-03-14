@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MogulyServer.Signal", "Mogu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MogulyServer.Domain", "MogulyServer.Domain\MogulyServer.Domain.csproj", "{5C9CC1F0-B747-4F05-B877-647FD0C67954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MogulyServer.Persistence", "MogulyServer.Persistence\MogulyServer.Persistence.csproj", "{14501683-41CA-4A9B-A54B-D7FF026F07FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{5C9CC1F0-B747-4F05-B877-647FD0C67954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C9CC1F0-B747-4F05-B877-647FD0C67954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C9CC1F0-B747-4F05-B877-647FD0C67954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14501683-41CA-4A9B-A54B-D7FF026F07FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14501683-41CA-4A9B-A54B-D7FF026F07FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14501683-41CA-4A9B-A54B-D7FF026F07FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14501683-41CA-4A9B-A54B-D7FF026F07FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MogulyServer.Domain.Square.ColoredStreets
 {
-    class ColoredStreetSquare : OwnableSquare
+    public class ColoredStreetSquare : OwnableSquare
     {
         public StreetColor Color { get; init; }
         public int RentCost { get; private set; }

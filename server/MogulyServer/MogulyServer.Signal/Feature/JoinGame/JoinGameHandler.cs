@@ -15,9 +15,10 @@ namespace MogulyServer.Signal.Feature.JoinGame
             _hubContext = hubContext;
         }
 
-        public async Task Handle(JoinGameCommand request, CancellationToken cancellationToken)
+        public Task Handle(JoinGameCommand request, CancellationToken cancellationToken)
         {
             // TODO: DB stuff
+            return Task.CompletedTask;
         }
     }
 }

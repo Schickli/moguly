@@ -17,10 +17,5 @@ namespace MogulyServer.Domain.Square.Utility
         {
             return new UtilitySquare(name, board, price);
         }
-
-        public override void LandOnSquare()
-        {
-            // hduiabiuda
-        }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MogulyServer.Domain.Square.EventSquares
 {
-    class FreeParkingSquare : EventSquare
+    public class FreeParkingSquare : EventSquare
     {
         private FreeParkingSquare(string name, GameBoard board) : base(name, board)
         {

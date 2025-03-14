@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Options;
+using MogulyServer.Persistence;
 using MogulyServer.Signal;
 using MogulyServer.Signal.Hub.Moguly;
 
@@ -6,11 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
+builder.AddSqlServerDbContext<MogulyContext>(connectionName: "database");
+
 builder.Services.AddSignalR(options =>
 {
     options.EnableDetailedErrors = true;
-})
-    .AddNewtonsoftJsonProtocol();
+}).AddNewtonsoftJsonProtocol();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 
