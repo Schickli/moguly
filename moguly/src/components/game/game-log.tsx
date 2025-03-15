@@ -10,93 +10,15 @@ import {
   Trophy,
 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState } from "react";
-
-interface LogEntry {
-  id: number;
-  type: "roll" | "buy" | "sell" | "trade" | "message" | "event" | "win";
-  timestamp: Date;
-  message: string;
-  details?: string;
-  players?: string[];
-  amount?: number;
-}
+import { LogEntry } from "./modals";
 
 interface GameLogProps {
   isCollapsed: boolean;
+  gameLog: LogEntry[];
   className?: string;
 }
 
-// Sample log entries for demonstration
-const sampleLogs: LogEntry[] = [
-  {
-    id: 1,
-    type: "roll",
-    timestamp: new Date(Date.now() - 300000),
-    message: "Player 1 rolled 6 + 4",
-    details: "Moved to Boardwalk",
-  },
-  {
-    id: 2,
-    type: "buy",
-    timestamp: new Date(Date.now() - 240000),
-    message: "Player 1 purchased Boardwalk",
-    amount: 400,
-  },
-  {
-    id: 3,
-    type: "event",
-    timestamp: new Date(Date.now() - 180000),
-    message: "Player 2 drew a Chance card",
-    details: "Advance to GO, collect $200",
-  },
-  {
-    id: 4,
-    type: "roll",
-    timestamp: new Date(Date.now() - 120000),
-    message: "Player 2 rolled 3 + 2",
-    details: "Moved to Oriental Avenue",
-  },
-  {
-    id: 5,
-    type: "buy",
-    timestamp: new Date(Date.now() - 90000),
-    message: "Player 2 purchased Oriental Avenue",
-    amount: 100,
-  },
-  {
-    id: 6,
-    type: "trade",
-    timestamp: new Date(Date.now() - 60000),
-    message: "Player 1 traded with Player 3",
-    details: "Gave: Park Place, Received: $350 + Get Out of Jail Free Card",
-    players: ["Player 1", "Player 3"],
-  },
-  {
-    id: 7,
-    type: "sell",
-    timestamp: new Date(Date.now() - 30000),
-    message: "Player 3 sold Baltic Avenue to the bank",
-    amount: 30,
-  },
-  {
-    id: 8,
-    type: "message",
-    timestamp: new Date(Date.now() - 10000),
-    message: "Player 4 is bankrupt!",
-  },
-  {
-    id: 9,
-    type: "win",
-    timestamp: new Date(),
-    message: "Player 1 wins the game!",
-    details: "Total assets: $3,450",
-  },
-];
-
-export function GameLog({ className, isCollapsed }: GameLogProps) {
-  const [logs] = useState<LogEntry[]>(sampleLogs);
-
+export function GameLog({ className, isCollapsed, gameLog }: GameLogProps) {
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
@@ -153,13 +75,13 @@ export function GameLog({ className, isCollapsed }: GameLogProps) {
               Game Log
             </h3>
             <span className="text-xs text-muted-foreground">
-              {logs.length} events
+              {gameLog.length} events
             </span>
           </div>
 
           <ScrollArea className="flex-1 h-1/3">
             <div className="p-2 space-y-1">
-              {logs.map((log) => (
+              {gameLog.map((log) => (
                 <div
                   key={log.id}
                   className={`text-sm p-2 rounded-md ${getBackgroundColor(log.type)} transition-colors`}

@@ -1,27 +1,54 @@
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Dice1, ShoppingBag } from "lucide-react"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Dice1, ShoppingBag, Wallet } from "lucide-react";
 
 interface ActionsProps {
-  className?: string
+  className?: string;
 }
+
+// Make these based on the response of the Websocket
+
+// Start Game
+
+// Buy Propertie
+
+// Roll Dice
+
+// End Turn
+
+// Auction
 
 export function Actions({ className }: ActionsProps) {
   return (
     <div className={cn(className, "p-4 flex flex-col items-center space-y-6")}>
       <div className="flex flex-col items-center gap-2">
-        <Button size="icon" className="h-14 w-14 rounded-full transition-all hover:scale-110">
+        <Button
+          size="icon"
+          className="h-14 w-14 rounded-full transition-all hover:scale-110"
+        >
+          <Wallet className="h-8 w-8" />
+        </Button>
+        <span className="text-sm font-medium">Buy</span>
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <Button
+          size="icon"
+          className="h-14 w-14 rounded-full transition-all hover:scale-110"
+        >
           <Dice1 className="h-8 w-8" />
         </Button>
         <span className="text-sm font-medium">Roll</span>
       </div>
 
       <div className="flex flex-col items-center gap-2">
-        <Button size="icon" className="h-14 w-14 rounded-full transition-all hover:scale-110">
+        <Button
+          size="icon"
+          className="h-14 w-14 rounded-full transition-all hover:scale-110"
+        >
           <ShoppingBag className="h-8 w-8" />
         </Button>
         <span className="text-sm font-medium">Auction</span>
       </div>
     </div>
-  )
+  );
 }

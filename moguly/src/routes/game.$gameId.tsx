@@ -1,5 +1,6 @@
 import { GameField } from "@/components/game/game-field";
 import { GameLog } from "@/components/game/game-log";
+import { LogEntry, Player } from "@/components/game/modals";
 import { PlayersOverview } from "@/components/game/players/players-overview";
 import { NavBar } from "@/components/navbar";
 import { cn } from "@/lib/utils";
@@ -57,6 +58,73 @@ const samplePlayers = [
   },
 ];
 
+// Sample log entries for demonstration
+const sampleLogs: LogEntry[] = [
+  {
+    id: 1,
+    type: "roll",
+    timestamp: new Date(Date.now() - 300000),
+    message: "Player 1 rolled 6 + 4",
+    details: "Moved to Boardwalk",
+  },
+  {
+    id: 2,
+    type: "buy",
+    timestamp: new Date(Date.now() - 240000),
+    message: "Player 1 purchased Boardwalk",
+    amount: 400,
+  },
+  {
+    id: 3,
+    type: "event",
+    timestamp: new Date(Date.now() - 180000),
+    message: "Player 2 drew a Chance card",
+    details: "Advance to GO, collect $200",
+  },
+  {
+    id: 4,
+    type: "roll",
+    timestamp: new Date(Date.now() - 120000),
+    message: "Player 2 rolled 3 + 2",
+    details: "Moved to Oriental Avenue",
+  },
+  {
+    id: 5,
+    type: "buy",
+    timestamp: new Date(Date.now() - 90000),
+    message: "Player 2 purchased Oriental Avenue",
+    amount: 100,
+  },
+  {
+    id: 6,
+    type: "trade",
+    timestamp: new Date(Date.now() - 60000),
+    message: "Player 1 traded with Player 3",
+    details: "Gave: Park Place, Received: $350 + Get Out of Jail Free Card",
+    players: ["Player 1", "Player 3"],
+  },
+  {
+    id: 7,
+    type: "sell",
+    timestamp: new Date(Date.now() - 30000),
+    message: "Player 3 sold Baltic Avenue to the bank",
+    amount: 30,
+  },
+  {
+    id: 8,
+    type: "message",
+    timestamp: new Date(Date.now() - 10000),
+    message: "Player 4 is bankrupt!",
+  },
+  {
+    id: 9,
+    type: "win",
+    timestamp: new Date(),
+    message: "Player 1 wins the game!",
+    details: "Total assets: $3,450",
+  },
+];
+
 export const Route = createFileRoute("/game/$gameId")({
   component: Game,
 });
@@ -64,6 +132,8 @@ export const Route = createFileRoute("/game/$gameId")({
 function Game() {
   const { gameId } = Route.useParams();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [logs] = useState<LogEntry[]>(sampleLogs);
+  const [players] = useState<Player[]>(samplePlayers)
 
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden">
@@ -79,11 +149,11 @@ function Game() {
         >
           <PlayersOverview
             className="flex-grow overflow-hidden h-2/3"
-            players={samplePlayers}
+            players={players}
             isCollapsed={isCollapsed}
             setIsCollapsed={setIsCollapsed}
           />
-          <GameLog className="h-1/3" isCollapsed={isCollapsed} />
+          <GameLog className="h-1/3" isCollapsed={isCollapsed} gameLog={logs} />
         </div>
       </section>
     </div>
