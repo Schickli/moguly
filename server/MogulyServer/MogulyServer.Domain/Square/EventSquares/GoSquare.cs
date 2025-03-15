@@ -13,6 +13,12 @@ namespace MogulyServer.Domain.Square.EventSquares
         {
         }
 
+        private GoSquare()
+            : base()
+        {
+
+        }
+
         public static GoSquare Create(GameBoard board)
         {
             return new GoSquare("Go", board);

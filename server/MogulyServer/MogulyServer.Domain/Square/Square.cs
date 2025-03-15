@@ -13,6 +13,11 @@ namespace MogulyServer.Domain.Square
         public string Name { get; init; }
         public GameBoard Board { get; set; }
 
+        protected Square()
+        {
+
+        }
+
         protected Square(string name, GameBoard board)
         {
             Id = Guid.NewGuid();

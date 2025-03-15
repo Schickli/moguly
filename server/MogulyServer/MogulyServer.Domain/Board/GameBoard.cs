@@ -9,19 +9,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using GamePlayer = MogulyServer.Domain.Player.Player;
+using System.Security.Cryptography.X509Certificates;
+using MogulyServer.Domain.GameState;
+
 namespace MogulyServer.Domain.Board
-{
+{ 
     public class GameBoard
     {
         public Guid Id { get; private set; }
 
-        private readonly Square.Square[] _squares;
+        public ICollection<GamePlayer> Players { get; set; }
+
+        public ICollection<Square.Square> Squares { get; set; }
+
+        public GameState.GameState State { get; set; }
 
         private const int _boardSize = 40;
 
-        private GameBoard()
+        private GameBoard() // used by ef
         {
-            _squares = new Square.Square[_boardSize]
+            Squares = new List<Square.Square>();
+            Players = new List<GamePlayer>();
+            State = new GameInLobby();
+        }
+
+        private GameBoard(GamePlayer creator)
+        {
+            Id = Guid.NewGuid();
+
+            Players = new List<GamePlayer>()
+            {
+                creator
+            };
+
+            State = new GameInLobby();
+
+            Squares = new Square.Square[_boardSize]
             {
                 GoSquare.Create(this),
                 ColoredStreetSquare.Create("Mediterranean Avenue", this, 60, StreetColor.Brown, 60),
@@ -67,6 +91,23 @@ namespace MogulyServer.Domain.Board
                 TaxSquare.Create("Luxury Tax", this),
                 ColoredStreetSquare.Create("Boardwalk", this, 400, StreetColor.DarkBlue, 400)
             };
+        }
+
+        public static GameBoard Create(GamePlayer creator)
+        {
+            var board = new GameBoard(creator);
+            creator.Board = board;
+
+            return board;
+        }
+
+        public void AddPlayer(GamePlayer player)
+        {
+            if (Players.Any(p => p.Rkey == player.Rkey))
+                return;
+
+            player.Board = this;
+            Players.Add(player);
         }
     }
 }

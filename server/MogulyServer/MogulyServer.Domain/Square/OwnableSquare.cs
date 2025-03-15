@@ -12,6 +12,11 @@ namespace MogulyServer.Domain.Square
         public string Owner { get; private set; }
         public int Price { get; init; }
 
+        protected OwnableSquare() // EF
+            : base()
+        {
+
+        }
         protected OwnableSquare(string name, GameBoard board, int price)
             : base(name, board)
         {

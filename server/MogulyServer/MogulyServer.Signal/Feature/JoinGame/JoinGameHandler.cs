@@ -1,5 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using MogulyServer.Domain.Player;
+using MogulyServer.Persistence.Board;
+using MogulyServer.Persistence.Context;
+using MogulyServer.Persistence.Player;
 using MogulyServer.Signal.Feature.RollDice;
 using MogulyServer.Signal.Hub.Moguly;
 
@@ -7,25 +11,25 @@ namespace MogulyServer.Signal.Feature.JoinGame
 {
     public class JoinGameHandler : IRequestHandler<JoinGameCommand>
     {
+        private readonly BoardRepository _boardRepository;
+        private readonly PlayerRepository _playerRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        private readonly IHubContext<MogulyHub, IMogulyClient > _hubContext;
-
-        public JoinGameHandler(IHubContext<MogulyHub, IMogulyClient> hubContext)
+        public JoinGameHandler(IUnitOfWork unitOfWork, BoardRepository boardRepository, PlayerRepository playerRepository)
         {
-            _hubContext = hubContext;
+            _unitOfWork = unitOfWork;
+            _boardRepository = boardRepository;
+            _playerRepository = playerRepository;
         }
 
         public async Task Handle(JoinGameCommand request, CancellationToken cancellationToken)
         {
-            await _hubContext.Groups.AddToGroupAsync(request.PlayerConnectionId, request.GameId.ToString(), cancellationToken);
+            var board = await _boardRepository.GetBoardByIdAsync(request.GameId);
 
+            var player = Player.Create(request.Rkey);
+            board.AddPlayer(player);
 
-            var availableCommands = new List<string>
-            {
-                nameof(RollDiceCommand)
-            };
-
-            await _hubContext.Clients.All.AvailableCommands(request.PlayerConnectionId, availableCommands);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

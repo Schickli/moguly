@@ -13,14 +13,15 @@ namespace MogulyServer.Domain.Square.Utility
         {
         }
 
+        private UtilitySquare()
+            : base()
+        {
+
+        }
+
         public static UtilitySquare Create(string name, GameBoard board, int price)
         {
             return new UtilitySquare(name, board, price);
-        }
-
-        public override void LandOnSquare()
-        {
-            // hduiabiuda
         }
     }
 }

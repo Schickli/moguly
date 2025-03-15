@@ -13,6 +13,12 @@ namespace MogulyServer.Domain.Square.Railroad
         {
         }
 
+        private RailRoadSquare()
+            : base()
+        {
+
+        }
+
         public static RailRoadSquare Create(string name, GameBoard board, int price)
         {
             return new RailRoadSquare(name, board, price);

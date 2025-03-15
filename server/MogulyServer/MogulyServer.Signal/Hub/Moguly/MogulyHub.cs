@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using MogulyServer.Signal.Feature.CreateGame;
 using MogulyServer.Signal.Feature.JoinGame;
 using Newtonsoft.Json.Linq;
 
@@ -11,20 +12,12 @@ namespace MogulyServer.Signal.Hub.Moguly
         private readonly IMediator _mediator;
         private readonly CommandTypeResolver _commandTypeResolver;
 
+        private Dictionary<Guid, List<string>> userConnectionMappings = new Dictionary<Guid, List<string>>();
+
         public MogulyHub(IMediator mediator, CommandTypeResolver commandTypeResolver)
         {
             _mediator = mediator;
             _commandTypeResolver = commandTypeResolver;
-        }
-
-        public override async Task OnConnectedAsync()
-        {
-            await Clients.All.ReceiveMessage($"{Context.ConnectionId}", "has joined");
-        }
-
-        public async Task SendToAll(string message)
-        {
-            await Clients.All.ReceiveMessage($"{Context.ConnectionId}", $"{message}");
         }
 
         public async Task HandleCommand(string commandType, JObject payload)
@@ -44,22 +37,29 @@ namespace MogulyServer.Signal.Hub.Moguly
             await _mediator.Send(command);
         }
 
-        public async Task JoinGame(Guid gameId)
+        public async Task CreateGame()
         {
-            var playerConnectionId = Context.ConnectionId; // CLARIFY: maybe use userIdentifier????
+            var userSessionId = Context.GetHttpContext()!.Request.Headers["rkey"];
+            var createGameCommand = new CreateGameCommand(Guid.Parse(userSessionId!));
 
-            var cmd = new JoinGameCommand()
-            {
-                GameId = gameId,
-                PlayerConnectionId = playerConnectionId
-            };
+            var gameId = await _mediator.Send(createGameCommand);
 
-            await _mediator.Send(cmd);
+            await Groups.AddToGroupAsync(Context.ConnectionId, gameId.ToString());
+
+            await Clients.Group(gameId.ToString()).ReceiveMessage(userSessionId!, "has created a new group");
         }
 
-        public async Task PingPlayers(Guid gameId)
+        public async Task JoinGame(Guid gameId)
         {
-            await Clients.Group(gameId.ToString()).ReceiveMessage("TEST", $"Your are in grou {gameId}");
+            var userSessionId = Context.GetHttpContext()!.Request.Headers["rkey"];
+
+            var joinGameCommand = new JoinGameCommand(gameId, Guid.Parse(userSessionId!));
+
+            await _mediator.Send(joinGameCommand);
+
+            await Groups.AddToGroupAsync(Context.ConnectionId, gameId.ToString());
+
+            await Clients.Group(gameId.ToString()).ReceiveMessage(userSessionId!, "new player joined");
         }
     }
 }
