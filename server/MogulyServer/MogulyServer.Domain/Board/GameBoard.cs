@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 using GamePlayer = MogulyServer.Domain.Player.Player;
 using System.Security.Cryptography.X509Certificates;
+using MogulyServer.Domain.GameState;
 
 namespace MogulyServer.Domain.Board
 { 
@@ -20,14 +21,19 @@ namespace MogulyServer.Domain.Board
 
         public ICollection<GamePlayer> Players { get; set; }
 
-        private readonly Square.Square[] _squares;
+        public ICollection<Square.Square> Squares { get; set; }
+
+        public GameState.GameState State { get; set; }
 
         private const int _boardSize = 40;
 
         private GameBoard() // used by ef
         {
+            Squares = new List<Square.Square>();
             Players = new List<GamePlayer>();
+            State = new GameInLobby();
         }
+
         private GameBoard(GamePlayer creator)
         {
             Id = Guid.NewGuid();
@@ -37,7 +43,9 @@ namespace MogulyServer.Domain.Board
                 creator
             };
 
-            _squares = new Square.Square[_boardSize]
+            State = new GameInLobby();
+
+            Squares = new Square.Square[_boardSize]
             {
                 GoSquare.Create(this),
                 ColoredStreetSquare.Create("Mediterranean Avenue", this, 60, StreetColor.Brown, 60),

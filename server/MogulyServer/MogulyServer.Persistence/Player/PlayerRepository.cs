@@ -30,6 +30,7 @@ namespace MogulyServer.Persistence.Player
         {
             return await _context.Players
                 .Include(player=> player.Board)
+                .Include(player => player.Ownables)
                 .FirstAsync(board => board.Id == id);
         }
 
@@ -37,6 +38,7 @@ namespace MogulyServer.Persistence.Player
         {
             return await _context.Players
                 .Include(player => player.Board)
+                .Include(player => player.Ownables)
                 .FirstOrDefaultAsync(player => player.Rkey == rkey);
         }
 

@@ -24,7 +24,7 @@ namespace MogulyServer.Signal.Feature.CreateGame
 
             var board = GameBoard.Create(creator);
 
-            await _boardRepository.AddBoardAsync(board);
+            await _boardRepository.AddBoardAsync(board);    
             await _unitOfWork.SaveChangesAsync();
 
             return board.Id;

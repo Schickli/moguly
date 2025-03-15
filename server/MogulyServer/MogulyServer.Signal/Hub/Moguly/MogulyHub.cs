@@ -20,41 +20,6 @@ namespace MogulyServer.Signal.Hub.Moguly
             _commandTypeResolver = commandTypeResolver;
         }
 
-
-        // Most likely useless (Connect(), Disconnect()), since we always have the rkey in header
-        public override async Task OnConnectedAsync()
-        {
-            var httpContext = Context.GetHttpContext();
-            var userSessionId = Guid.Parse(Context.GetHttpContext()!.Request.Headers["rkey"]!);
-
-
-            if (userConnectionMappings.ContainsKey(userSessionId))
-            {
-                userConnectionMappings[userSessionId].Add(Context.ConnectionId);
-            }
-            else
-            {
-                userConnectionMappings.Add(userSessionId, [Context.ConnectionId]);
-            }
-
-            await base.OnConnectedAsync();
-        }
-
-        public override Task OnDisconnectedAsync(Exception? exception)
-        {
-            var httpContext = Context.GetHttpContext();
-            var userSessionId = Guid.Parse(Context.GetHttpContext()!.Request.Headers["rkey"]!);
-
-            userConnectionMappings[userSessionId].Remove(Context.ConnectionId);
-
-            if (!userConnectionMappings[userSessionId].Any())
-            {
-                userConnectionMappings.Remove(userSessionId);
-            }
-
-            return base.OnDisconnectedAsync(exception);
-        }
-
         public async Task HandleCommand(string commandType, JObject payload)
         {
             var type = _commandTypeResolver.GetCommandType(commandType);
@@ -80,6 +45,8 @@ namespace MogulyServer.Signal.Hub.Moguly
             var gameId = await _mediator.Send(createGameCommand);
 
             await Groups.AddToGroupAsync(Context.ConnectionId, gameId.ToString());
+
+            await Clients.Group(gameId.ToString()).ReceiveMessage(userSessionId!, "has created a new group");
         }
 
         public async Task JoinGame(Guid gameId)
@@ -91,6 +58,8 @@ namespace MogulyServer.Signal.Hub.Moguly
             await _mediator.Send(joinGameCommand);
 
             await Groups.AddToGroupAsync(Context.ConnectionId, gameId.ToString());
+
+            await Clients.Group(gameId.ToString()).ReceiveMessage(userSessionId!, "new player joined");
         }
     }
 }

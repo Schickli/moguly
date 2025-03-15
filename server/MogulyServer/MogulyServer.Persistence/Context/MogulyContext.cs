@@ -11,6 +11,9 @@ using MogulyServer.Persistence.StreetColor;
 using SquareStreetColor = MogulyServer.Domain.Square.ColoredStreets.StreetColor;
 
 using GamePlayer = MogulyServer.Domain.Player.Player;
+using System.Drawing;
+using MogulyServer.Domain.GameState;
+using MogulyServer.Persistence.Board.GameState;
 
 namespace MogulyServer.Persistence.Context
 {
@@ -39,6 +42,9 @@ namespace MogulyServer.Persistence.Context
         {
             configurationBuilder.Properties<SquareStreetColor>()
                 .HaveConversion<StreetColorConverter>();
+
+            configurationBuilder.Properties<GameState>()
+                .HaveConversion<GameStateConverter>();
         }
     }
 }

@@ -20,13 +20,17 @@ namespace MogulyServer.Persistence.Board
 
         public async Task<IList<GameBoard>> GetBoardsAsync()
         {
-            return await _context.Boards.ToListAsync();
+            return await _context.Boards
+                .Include(board => board.Players)
+                .Include(board => board.Squares)
+                .ToListAsync();
         }
 
         public async Task<GameBoard> GetBoardByIdAsync(Guid id)
         {
             return await _context.Boards
                 .Include(board => board.Players)
+                .Include(board => board.Squares)
                 .FirstAsync(board => board.Id == id);
         }
 
